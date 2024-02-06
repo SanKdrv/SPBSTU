@@ -16,10 +16,10 @@ class Book:
 
     @name.setter
     def name(self, new_name: str) -> None:
-        if type(new_name) is str:
+        if isinstance(new_name, str):
             self._name = new_name
         else:
-            raise ValueError("Error")
+            raise TypeError("Error")
 
     @property
     def author(self) -> str:
@@ -27,10 +27,10 @@ class Book:
 
     @author.setter
     def author(self, new_author: str) -> None:
-        if type(new_author) is str:
+        if isinstance(new_author, str):
             self._author = new_author
         else:
-            raise ValueError("Error")
+            raise TypeError("Error")
 
 
 class PaperBook(Book):
@@ -47,10 +47,13 @@ class PaperBook(Book):
 
     @pages.setter
     def pages(self, new_pages: int) -> None:
-        if isinstance(new_pages, int) and new_pages > 0:
-            self._pages = new_pages
+        if isinstance(new_pages, int):
+            if new_pages <= 0:
+                raise ValueError("Error")
+            else:
+                self._pages = new_pages
         else:
-            raise ValueError("Error")
+            raise TypeError("Error")
 
 
 class AudioBook(Book):
@@ -67,7 +70,10 @@ class AudioBook(Book):
 
     @duration.setter
     def duration(self, new_duration: Union[int, float]) -> None:
-        if isinstance(new_duration, Union[int, float]) and new_duration > 0:
-            self._duration = new_duration
+        if isinstance(new_duration, int | float):
+            if new_duration <= 0:
+                raise ValueError("Error")
+            else:
+                self._duration = new_duration
         else:
-            raise ValueError("Error")
+            raise TypeError("Error")
